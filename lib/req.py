@@ -121,6 +121,6 @@ class Request:
         return headers
 
     def get_cookies(self):
-        cookies = {'rememberMe': 'test'}
+        cookies = {'login': 'admin', 'auth':'admin'}
         return cookies
 
