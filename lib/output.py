@@ -18,9 +18,9 @@ class Output:
         self.filename_xls = Save.output_file
         self.path_json = os.path.join(path.output, self.filename_json)
         self.path_xls = os.path.join(path.output, self.filename_xls)
-        if Save.output_file.endswith('json') and Webinfo.result:
+        if Save.output_file.endswith('.json') and Webinfo.result:
             self.outJson()
-        if Save.output_file.endswith('xlsx') and Webinfo.result:
+        if Save.output_file.endswith('.xlsx') and Webinfo.result:
             self.outXls()
 
     def outJson(self):

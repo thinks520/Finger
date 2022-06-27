@@ -189,6 +189,11 @@
 			"location": "body",
 			"keyword": ["assets/gitlab_logo"]
 		}, {
+			"cms": "Gitea",
+			"method": "keyword",
+			"location": "body",
+			"keyword": ["/gitea/manifest.json"]
+		}, {
 			"cms": "宝塔-BT.cn",
 			"method": "keyword",
 			"location": "body",
