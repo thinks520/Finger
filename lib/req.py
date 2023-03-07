@@ -101,6 +101,8 @@ class Request:
         text = soup.text
         if len(text) <= 200:
             return text
+        if text:
+            return text[:100]
         return ''
 
     def get_headers(self):
