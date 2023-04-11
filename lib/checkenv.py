@@ -13,7 +13,6 @@ class CheckEnv:
     def __init__(self):
         self.pyVersion = platform.python_version()
         self.path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        self.python_check()
         self.path_check()
         if FingerPrint_Update:
             self.update()
