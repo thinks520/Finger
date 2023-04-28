@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author = EASY
-class Colored():
+class Colored:
     def __init__(self):
         self.Red = '\033[1;31m'  # 红色
         self.Green = '\033[1;32m'  # 绿色
@@ -32,5 +32,6 @@ class Colored():
 
     def white(self, s):
         return "{0}{1}{2}".format(self.White, s, self.Reset)
+
 
 color = Colored()

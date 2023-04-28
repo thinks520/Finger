@@ -6,14 +6,14 @@ import time
 import json
 import base64
 import xlsxwriter
-from config.data import path, Webinfo, Save, Urlerror
+from config.data import path, Webinfo, Save, UrlError
 from config.data import logging
 
 
 class Output:
     def __init__(self):
         self.nowTime = time.strftime("%Y%m%d%H%M%S", time.localtime())
-        Webinfo.result = Webinfo.result + Urlerror.result
+        Webinfo.result = Webinfo.result + UrlError.result
         self.filename_json = Save.output_file
         self.filename_xls = Save.output_file
         self.path_json = os.path.join(path.output, self.filename_json)
@@ -51,22 +51,24 @@ class Output:
             worksheet.write('E1', 'status', bold)
             worksheet.write('F1', 'size', bold)
             worksheet.write('G1', 'ip', bold)
-            worksheet.write('H1', 'iscdn', bold)
-            worksheet.write('I1', 'address', bold)
-            worksheet.write('J1', 'isp', bold)
+            worksheet.write('H1', 'cname', bold)
+            worksheet.write('I1', 'iscdn', bold)
+            worksheet.write('J1', 'address', bold)
+            worksheet.write('K1', 'isp', bold)
             row = 1
             col = 0
-            for vaule in Webinfo.result:
-                worksheet.write(row, col, vaule["url"])
-                worksheet.write(row, col + 1, vaule["title"])
-                worksheet.write(row, col + 2, vaule["cms"])
-                worksheet.write(row, col + 3, vaule["Server"])
-                worksheet.write(row, col + 4, vaule["status"])
-                worksheet.write(row, col + 5, vaule["size"])
-                worksheet.write(row, col + 6, vaule["ip"])
-                worksheet.write(row, col + 7, vaule["iscdn"])
-                worksheet.write(row, col + 8, vaule["address"])
-                worksheet.write(row, col + 9, vaule["isp"])
+            for value in Webinfo.result:
+                worksheet.write(row, col, value["url"])
+                worksheet.write(row, col + 1, value["title"])
+                worksheet.write(row, col + 2, value["cms"])
+                worksheet.write(row, col + 3, value["Server"])
+                worksheet.write(row, col + 4, value["status"])
+                worksheet.write(row, col + 5, value["size"])
+                worksheet.write(row, col + 6, value["ip"])
+                worksheet.write(row, col + 7, value["cname"])
+                worksheet.write(row, col + 8, value["iscdn"])
+                worksheet.write(row, col + 9, value["address"])
+                worksheet.write(row, col + 10, value["isp"])
                 row = row + 1
 
         print()

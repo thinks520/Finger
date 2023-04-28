@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 # author = EASY
 import os
-from config.data import path
+
 from config.data import Webinfo
+from config.data import path
 from lib.ip2Region import Ip2Region
 
 
@@ -12,7 +13,6 @@ class IpAttributable:
         dbFile = os.path.join(path.library, "data", "ip2region.db")
         self.searcher = Ip2Region(dbFile)
         self.getAttributable()
-
 
     def ipCollection(self):
         ip_list = []
@@ -40,4 +40,3 @@ class IpAttributable:
                         Webinfo.result[Webinfo.result.index(value)]["isp"] = isp
         except Exception as e:
             pass
-

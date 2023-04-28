@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 # author = EASY
 import os
+
 from api.fofa import Fofa
 from api.quake import Quake
 from config.data import Urls, logging, Save, Ips
 
 
-class initoptions:
+class InitOptions:
     def __init__(self, args):
-        self.key = ["\"","“","”","\\","'"]
+        self.key = ["\"", "“", "”", "\\", "'"]
         Urls.url = []
         Ips.ip = []
         self._url = args.url
@@ -23,7 +24,8 @@ class initoptions:
         self.output()
         self.get_ip()
 
-    def api_data(self, args):
+    @staticmethod
+    def api_data(args):
         if args.fofa:
             run = Fofa()
         elif args.quake:
@@ -45,7 +47,7 @@ class initoptions:
     def check(self, url):
         for key in self.key:
             if key in url:
-                url = url.replace(key,"")
+                url = url.replace(key, "")
         if not url.startswith('http') and url:
             # 若没有http头默认同时添加上http与https到目标上
             Urls.url.append("http://" + str(url))
@@ -55,7 +57,7 @@ class initoptions:
 
     def output(self):
         if not self.output_file.endswith("json") and not self.output_file.endswith("xlsx"):
-            errMsg = "Ouput args is error,eg(json,xlsx default:xlsx)"
+            errMsg = "Output args is error,eg(json,xlsx default:xlsx)"
             logging.error(errMsg)
             exit(0)
         Save.output_file = self.output_file
@@ -102,4 +104,3 @@ class initoptions:
                                 (num & 0x00ff0000) >> 16,
                                 (num & 0x0000ff00) >> 8,
                                 num & 0x000000ff)
-

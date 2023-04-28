@@ -5,14 +5,20 @@ import logging
 import sys
 from config.color import color
 from colorama import init as wininit
+
 wininit(autoreset=True)
+
 
 # 设置日志等级
 class LoggingLevel:
+    def __init__(self):
+        pass
+
     SUCCESS = 9
     SYSINFO = 8
     ERROR = 7
     WARNING = 6
+
 
 logging.addLevelName(LoggingLevel.SUCCESS, color.cyan("[+]"))
 logging.addLevelName(LoggingLevel.SYSINFO, color.green("[INFO]"))
@@ -31,17 +37,24 @@ LOGGER_HANDLER.setFormatter(formatter)
 LOGGER.addHandler(LOGGER_HANDLER)
 LOGGER.setLevel(LoggingLevel.WARNING)
 
-class MY_LOGGER:
+
+class MyLogger:
+
+    def __init__(self):
+        pass
+
+    @staticmethod
     def info(msg):
         return LOGGER.log(LoggingLevel.SYSINFO, msg)
 
+    @staticmethod
     def error(msg):
         return LOGGER.log(LoggingLevel.ERROR, msg)
 
+    @staticmethod
     def warning(msg):
         return LOGGER.log(LoggingLevel.WARNING, msg)
 
+    @staticmethod
     def success(msg):
         return LOGGER.log(LoggingLevel.SUCCESS, msg)
-
-

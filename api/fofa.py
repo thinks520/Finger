@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author = EASY
-import json
 import base64
+import json
 import random
-import requests
 from urllib.parse import quote
-from config.data import logging,Urls,Ips
-from config.config import Fofa_key,Fofa_email,user_agents
-import readline
+
+import requests
+
+from config.config import Fofa_key, Fofa_email, user_agents
+from config.data import logging, Urls, Ips
 
 
 class Fofa:
@@ -42,14 +43,14 @@ class Fofa:
         else:
             logging.error("fofa api不可用，请检查配置是否正确！")
 
-    def run(self,keyword):
+    def run(self, keyword):
         logging.info("正在调用fofa进行收集资产。。。。")
-        logging.info("查询关键词为:{0},查询数量为:{1}".format(keyword,self.size))
+        logging.info("查询关键词为:{0},查询数量为:{1}".format(keyword, self.size))
         keyword = quote(str(base64.b64encode(keyword.encode()), encoding='utf-8'))
         url = "https://fofa.info/api/v1/search/all?email={0}&key={1}&qbase64={2}&full=false&fields=protocol,host&size={3}".format(
             self.email, self.key, keyword, self.size)
         try:
-            response = requests.get(url,timeout=10,headers = self.headers )
+            response = requests.get(url, timeout=10, headers=self.headers)
             datas = json.loads(response.text)
             if "results" in datas.keys():
                 for data in datas["results"]:

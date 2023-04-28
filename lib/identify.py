@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author = EASY
+import json
 import os
 import re
-import json
-from config.data import path
-from config.color import color
 from urllib.parse import urlsplit
+
+from config.color import color
 from config.data import logging, Webinfo
+from config.data import path
 
 
 class Identify:
     def __init__(self):
+        self.data = None
         filepath = os.path.join(path.library, 'finger.json')
         with open(filepath, 'r', encoding='utf-8') as file:
             finger = json.load(file)
@@ -20,26 +22,26 @@ class Identify:
             # 初始化指纹库
             self._prepare_app()
 
-    def run(self, datas):
-        self.datas = datas
+    def run(self, data):
+        self.data = data
         cms = self._has_app()
-        self.datas["cms"] = ','.join(set(cms))
-        _url = "://{0}".format(urlsplit(self.datas['url']).netloc)  # 添加://降低误报率
+        self.data["cms"] = ','.join(set(cms))
+        _url = "://{0}".format(urlsplit(self.data['url']).netloc)  # 添加://降低误报率
         _webinfo = str(Webinfo.result)
-        if _url in _webinfo and self.datas["title"] in _webinfo:
+        if _url in _webinfo and self.data["title"] in _webinfo:
             pass
         else:
-            results = {"url": self.datas["url"], "cms": self.datas["cms"], "title": self.datas["title"],
-                       "status": self.datas["status"], "Server": self.datas['Server'],
-                       "size": self.datas["size"], "iscdn": self.datas["iscdn"], "ip": self.datas["ip"],
-                       "address": self.datas["address"], "isp": self.datas["isp"]}
+            results = {"url": self.data["url"], "cms": self.data["cms"], "title": self.data["title"],
+                       "status": self.data["status"], "Server": self.data['Server'],
+                       "size": self.data["size"], "iscdn": self.data["iscdn"], "ip": self.data["ip"],
+                       "cname": self.data["cname"], "address": self.data["address"], "isp": self.data["isp"]}
             if cms:
                 Webinfo.result.insert(0, results)
             else:
                 Webinfo.result.append(results)
-            Msg = "{0} {1} {2} {4} {3}".format(color.green(self.datas['cms']),
-                                               color.blue(self.datas['Server']), self.datas['title'],
-                                               color.yellow(self.datas['status']), self.datas["url"])
+            Msg = "{0} {1} {2} {4} {3}".format(color.green(self.data['cms']),
+                                               color.blue(self.data['Server']), self.data['title'],
+                                               color.yellow(self.data['status']), self.data["url"])
             logging.success(Msg)
 
     def _prepare_app(self):
@@ -58,16 +60,16 @@ class Identify:
         cms = []
         for line in self.obj:
             flag = 1
-            if line['method'] == "faviconhash" and str(self.datas["faviconhash"]) == line["keyword"][0]:
+            if line['method'] == "faviconhash" and str(self.data["faviconhash"]) == line["keyword"][0]:
                 cms.append(line["cms"])
             elif line["method"] == "keyword":
                 for key in line["keyword"]:
-                    if key not in str(self.datas[line["location"]]):
+                    if key not in str(self.data[line["location"]]):
                         flag = 0
                 if flag == 1:
                     cms.append(line["cms"])
             elif line["method"] == "regula":
-                if line["keyword"].search(self.datas[line["location"]]):
+                if line["keyword"].search(self.data[line["location"]]):
                     cms.append(line["cms"])
             else:
                 pass

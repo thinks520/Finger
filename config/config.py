@@ -19,7 +19,7 @@ ______ _
 
     Author: {1}
     Website: {2}\033[0m                   
-'''.format(Version,Author,Website)
+'''.format(Version, Author, Website)
 
 # 设置线程数，默认30
 threads = 30
@@ -32,22 +32,20 @@ Fofa_key = ""
 # 设置360quake key信息，每月能免费查询3000条记录
 QuakeKey = ""
 
-
 # 是否选择在线跟新指纹库，默认为True每次程序都会检查一遍指纹库是否是最新
-FingerPrint_Update = False
-
+FingerPrintUpdate = False
 
 user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-            '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 '
-            '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-            '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/68.0',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) '
-            'Gecko/20100101 Firefox/68.0',
-            'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/68.0']
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/68.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) '
+    'Gecko/20100101 Firefox/68.0',
+    'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/68.0']
 
 head = {
     "User-Agent": random.choice(user_agents)

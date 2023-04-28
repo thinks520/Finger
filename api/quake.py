@@ -3,15 +3,16 @@
 # author = EASY
 import json
 import random
-import requests
-from config.data import Urls, logging
-from config.config import QuakeKey, user_agents
-import readline
 
+import requests
+
+from config.config import QuakeKey, user_agents
+from config.data import Urls, logging
 
 
 class Quake:
     def __init__(self):
+        self.data = None
         self.headers = {
             "User-Agent": random.choice(user_agents),
             "X-QuakeToken": QuakeKey
@@ -19,7 +20,7 @@ class Quake:
         if QuakeKey == "":
             logging.warning("请先在config/config.py文件中配置quake的api")
             exit(0)
-        
+
         try:
             logging.info("[QUAKE Example]domain:example.com\n")
             while 1:
@@ -27,7 +28,7 @@ class Quake:
                 self.size = input("请输入查询数量:").strip()
                 if self.keywords == "" or self.size == "":
                     logging.error("\n关键字或查询数量不能为空！")
-                elif self.size.isdigit() != True:
+                elif not self.size.isdigit():
                     logging.error("\n查询数量非整数！")
                 else:
                     break
@@ -35,7 +36,6 @@ class Quake:
         except KeyboardInterrupt:
             logging.error("\n用户取消输入！直接退出。")
             exit(0)
-    
 
     def run(self):
         logging.info("正在使用使用360 Quake进行资产收集。。。")

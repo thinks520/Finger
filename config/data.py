@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 # author = EASY
 from config.datatype import AttribDict
-from config.log import MY_LOGGER
+from config.log import MyLogger
 
-logging  = MY_LOGGER
+logging = MyLogger
 
 path = AttribDict()
 Urls = AttribDict()
 Ips = AttribDict()
 Webinfo = AttribDict()
 Save = AttribDict()
-Urlerror = AttribDict()
+UrlError = AttribDict()

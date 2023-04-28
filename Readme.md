@@ -126,7 +126,7 @@ Fofa_Size = 100
 QuakeKey = ""
 
 # 是否选择在线跟新指纹库，默认为True每次程序都会检查一遍指纹库是否是最新
-FingerPrint_Update = True
+FingerPrintUpdate = True
 ```
 
 ## 指纹识别规则
