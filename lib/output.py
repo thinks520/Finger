@@ -52,9 +52,10 @@ class Output:
             worksheet.write('F1', 'size', bold)
             worksheet.write('G1', 'ip', bold)
             worksheet.write('H1', 'cname', bold)
-            worksheet.write('I1', 'iscdn', bold)
-            worksheet.write('J1', 'address', bold)
-            worksheet.write('K1', 'isp', bold)
+            worksheet.write('I1', 'is_cdn', bold)
+            worksheet.write('J1', 'is_inner', bold)
+            worksheet.write('K1', 'address', bold)
+            worksheet.write('L1', 'isp', bold)
             row = 1
             col = 0
             for value in Webinfo.result:
@@ -66,9 +67,10 @@ class Output:
                 worksheet.write(row, col + 5, value["size"])
                 worksheet.write(row, col + 6, value["ip"])
                 worksheet.write(row, col + 7, value["cname"])
-                worksheet.write(row, col + 8, value["iscdn"])
-                worksheet.write(row, col + 9, value["address"])
-                worksheet.write(row, col + 10, value["isp"])
+                worksheet.write(row, col + 8, value["is_cdn"])
+                worksheet.write(row, col + 9, value["is_inner"])
+                worksheet.write(row, col + 10, value["address"])
+                worksheet.write(row, col + 11, value["isp"])
                 row = row + 1
 
         print()

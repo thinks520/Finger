@@ -33,8 +33,9 @@ class Identify:
         else:
             results = {"url": self.data["url"], "cms": self.data["cms"], "title": self.data["title"],
                        "status": self.data["status"], "Server": self.data['Server'],
-                       "size": self.data["size"], "iscdn": self.data["iscdn"], "ip": self.data["ip"],
-                       "cname": self.data["cname"], "address": self.data["address"], "isp": self.data["isp"]}
+                       "size": self.data["size"], "is_cdn": self.data["is_cdn"], "ip": self.data["ip"],
+                       "is_inner": self.data["is_inner"], "cname": self.data["cname"], "address": self.data["address"],
+                       "isp": self.data["isp"]}
             if cms:
                 Webinfo.result.insert(0, results)
             else:

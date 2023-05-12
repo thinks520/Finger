@@ -29,15 +29,15 @@ class IPFactory:
 
     def factory(self, url):
         """
-        获取域名对应 ip列表、 cname列表、 cdn判断
+        获取域名对应 ip列表、 cname列表、 cdn判断, 内网判断
         """
 
         host = self.parse_host(url)
         # 获取CNAME
         cname_list = []
         try:
-            CNAME = dns.resolver.resolve(host, 'CNAME')
-            for i in CNAME.response.answer:
+            resolver_cname = dns.resolver.resolve(host, 'CNAME')
+            for i in resolver_cname.response.answer:
                 for j in i.items:
                     # print(j.to_text())
                     cname_list.append(j.to_text())
@@ -47,26 +47,42 @@ class IPFactory:
         cname = ",".join(cname_list) if cname_list else ""
 
         # 获取IP
-        ip_list = []
+        resolver_ip_list = []
+        available_ip_list = []
+        ip = ""
         try:
-            IP = dns.resolver.resolve(host, 'A')
-            for i in IP.response.answer:
+            resolver_ip = dns.resolver.resolve(host, 'A')
+            for i in resolver_ip.response.answer:
                 for j in i.items:
-                    # print(j.to_text())
-                    ip_list.append(j.to_text())
+                    resolver_ip_list.append(j.to_text())
         except:
             pass
-        ip_list = list(set(ip_list))
-        ip = ",".join(ip_list) if ip_list else ""
-
+        resolver_ip_list = list(set(resolver_ip_list))
+        if resolver_ip_list:
+            for resolver_ip in resolver_ip_list:
+                try:
+                    # 校验是否为有效IP
+                    ipaddress.ip_address(resolver_ip.strip())
+                    available_ip_list.append(resolver_ip)
+                except Exception as e:
+                    pass
+            ip = ",".join(available_ip_list) if available_ip_list else ""
+        is_inner = 0
+        for available_ip in available_ip_list:
+            try:
+                if ipaddress.ip_address(available_ip.strip()).is_private:
+                    is_inner = 1
+            except Exception as e:
+                pass
         # 判断CDN
         is_cdn = 0
-        if len(ip_list) > 1:
-            is_cdn = 1
-        else:
-            for cdn in self.cdns:
-                if ipaddress.ip_address(ip_list[0]) in ipaddress.ip_network(cdn):
-                    is_cdn = 1
-                    break
-        return cname, ip, is_cdn
-
+        if available_ip_list:
+            if len(available_ip_list) > 1:
+                is_cdn = 1
+            else:
+                for cdn in self.cdns:
+                    if ipaddress.ip_address(available_ip_list[0]) in ipaddress.ip_network(cdn):
+                        is_cdn = 1
+                        break
+        host_data = {"cname": cname, "ip": ip, "is_inner": is_inner, "is_cdn": is_cdn}
+        return host_data

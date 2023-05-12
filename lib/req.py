@@ -41,10 +41,13 @@ class Request:
             logging.error("用户强制程序，系统中止!")
             exit(0)
         except Exception as e:
-            cname, ip, is_cdn = self.ipFactory.factory(url)
+            logging.error("function apply error: " + str(e))
+            host_data = self.ipFactory.factory(url)
             results = {"url": str(url), "cms": "-", "title": str(e),
                        "status": "-", "Server": "-",
-                       "size": "-", "iscdn": is_cdn, "ip": ip, "cname": cname,
+                       "size": "-", "is_cdn": host_data.get("is_cdn"),
+                       "ip": host_data.get("ip"), "is_inner": host_data.get("is_inner"),
+                       "cname": host_data.get("cname"),
                        "address": "-", "isp": "-"}
             UrlError.result.append(results)
 
@@ -62,9 +65,10 @@ class Request:
         server = response.headers["Server"] if "Server" in response.headers else ""
         server = "" if len(server) > 50 else server
         faviconhash = self.get_favicon_hash(url)
-        cname, ip, is_cdn = self.ipFactory.factory(url)
+        host_data = self.ipFactory.factory(url)
         datas = {"url": url, "title": title, "body": html, "status": status, "Server": server, "size": size,
-                 "header": response.headers, "faviconhash": faviconhash, "iscdn": is_cdn, "ip": ip, "cname": cname,
+                 "header": response.headers, "faviconhash": faviconhash, "is_cdn": host_data.get("is_cdn"),
+                 "ip": host_data.get("ip"), "is_inner": host_data.get("is_inner"), "cname": host_data.get("cname"),
                  "address": "", "isp": ""}
         self.check_cms.run(datas)
 

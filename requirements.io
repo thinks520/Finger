@@ -1,9 +1,0 @@
-mmh3
-requests
-urllib3
-xlsxwriter
-colorama
-beautifulsoup4
-lxml
-pyreadline
-dnspython

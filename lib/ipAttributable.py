@@ -17,7 +17,7 @@ class IpAttributable:
     def ipCollection(self):
         ip_list = []
         for value in Webinfo.result:
-            if value["iscdn"] == 0 and value["ip"] not in ip_list:
+            if value["is_cdn"] == 0 and value["ip"] not in ip_list:
                 ip_list.append(value["ip"])
         return ip_list
 
