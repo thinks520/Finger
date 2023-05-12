@@ -6,6 +6,7 @@ import os
 from api.fofa import Fofa
 from api.quake import Quake
 from config.data import Urls, logging, Save, Ips
+from lib.checkenv import CheckEnv
 
 
 class InitOptions:
@@ -18,11 +19,14 @@ class InitOptions:
         self._ip = args.ip
         self._ipfile = args.ipfile
         self.output_file = args.output
+        self.update = args.update
         # 查询顺序非常重要不能随便移动位置
         self.api_data(args)
         self.target()
         self.output()
         self.get_ip()
+        if self.update:
+            CheckEnv.update()
 
     @staticmethod
     def api_data(args):

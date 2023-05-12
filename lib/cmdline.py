@@ -5,7 +5,8 @@ import argparse
 
 
 def cmdline():
-    parser = argparse.ArgumentParser(description="Finger 一款红队在大量的资产中存活探测与重点攻击系统指纹探测工具 --by EASY")
+    parser = argparse.ArgumentParser(
+        description="Finger 一款红队在大量的资产中存活探测与重点攻击系统指纹探测工具 --by EASY")
     target = parser.add_argument_group('Target')
     target.add_argument('-u', dest='url', type=str, help="Input your url target")
     target.add_argument('-f', dest='file', type=str, help="Input your target's file")
@@ -19,5 +20,7 @@ def cmdline():
     output = parser.add_argument_group('Output')
     output.add_argument('-o', dest='output', type=str, default="result.xlsx",
                         help="可选参数 (xxx.json,xxx.xlsx,默认为:result.xlsx), 根据后缀名会生成相应的格式文件")
+    output = parser.add_argument_group('Update')
+    output.add_argument('-up', dest='update', type=bool, default=False, help="更新finger规则.")
     args = parser.parse_args()
     return args
