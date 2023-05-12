@@ -9,12 +9,15 @@ from urllib.parse import urlsplit
 from config.color import color
 from config.data import logging, Webinfo
 from config.data import path
+from lib.checkenv import CheckEnv
 
 
 class Identify:
     def __init__(self):
         self.data = None
         filepath = os.path.join(path.library, 'finger.json')
+        if not os.path.exists(filepath):
+            CheckEnv.update()
         with open(filepath, 'r', encoding='utf-8') as file:
             finger = json.load(file)
             for name, value in finger.items():
